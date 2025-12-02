@@ -43,8 +43,15 @@ def save_data(filename, data):
 #funtion to register employees
 def register_employees():
     employees = load_data(employee_file)
-    emp_id = len(employees) + 1
+    
+    # To get the highest id then add 1 to prevent duplicating ids
+    highest_id = 0
+    for emp in employees:
+        if emp["emp_id"] > highest_id:
+            highest_id = emp["emp_id"]
 
+    emp_id = highest_id + 1
+    
     print("\n---Register New Employee---")
     name = input("Name: ")
     role = input("Role: ")
@@ -76,6 +83,20 @@ def edit_employee():
             return
     print("Employee Not Found!")
 
+def delete_employee():
+    employees = load_data(employee_file)
+    emp_id = int(input("Enter employee ID to delete employee: "))
+
+    updated_employees = []
+
+    for employee in employees:
+        if employee["emp_id"] != emp_id:
+            updated_employees.append(employee)
+    
+    save_data(employee_file, updated_employees)
+
+    print("Employee Successfully Removed!")
+
 def menu():
 
     while True:
@@ -86,6 +107,7 @@ def menu():
               
 1. Register Employee
 2. Edit Employee
+3. Delete Employee
 """)
 
         choice = int(input("Select Option: "))
@@ -94,5 +116,6 @@ def menu():
             register_employees()
         elif choice == 2:
             edit_employee()
-
+        elif choice == 3:
+            delete_employee()
 menu()
