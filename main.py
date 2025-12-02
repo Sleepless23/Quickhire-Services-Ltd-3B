@@ -43,8 +43,15 @@ def save_data(filename, data):
 #funtion to register employees
 def register_employees():
     employees = load_data(employee_file)
-    emp_id = len(employees) + 1
+    
+    # To get the highest id then add 1 to prevent duplicating ids
+    highest_id = 0
+    for emp in employees:
+        if emp["emp_id"] > highest_id:
+            highest_id = emp["emp_id"]
 
+    emp_id = highest_id + 1
+    
     print("\n---Register New Employee---")
     name = input("Name: ")
     role = input("Role: ")
@@ -59,7 +66,56 @@ def register_employees():
     print("Employee Registered Successfully")
 
 def edit_employee():
-    pass
+    employees = load_data(employee_file)
+    emp_id = int(input("Enter employee ID to edit: "))
 
+    for emp in employees:
+        if emp["emp_id"] == emp_id:
+            print(f"Editing Employee: {emp["name"]}")
+            emp["name"] = input("New Name: ")
+            emp["role"] = input("New Role: ")
+            emp["dept"] = input("New Department: ")
+            emp["rate"] = float(input("New Hourly Rate: "))
+            emp["contact"] = input("New Contact: ")
 
-register_employees()
+            save_data(employee_file, employees)
+            print("Employee Successfully Updated")
+            return
+    print("Employee Not Found!")
+
+def delete_employee():
+    employees = load_data(employee_file)
+    emp_id = int(input("Enter employee ID to delete employee: "))
+
+    updated_employees = []
+
+    for employee in employees:
+        if employee["emp_id"] != emp_id:
+            updated_employees.append(employee)
+    
+    save_data(employee_file, updated_employees)
+
+    print("Employee Successfully Removed!")
+
+def menu():
+
+    while True:
+        print("""
+===============================
+    QuickHire-Services-Ltd.
+===============================
+              
+1. Register Employee
+2. Edit Employee
+3. Delete Employee
+""")
+
+        choice = int(input("Select Option: "))
+
+        if choice == 1:
+            register_employees()
+        elif choice == 2:
+            edit_employee()
+        elif choice == 3:
+            delete_employee()
+menu()
