@@ -38,7 +38,7 @@ def load_data(filename):
 #function to save data
 def save_data(filename, data):
     with open(filename, "w") as file:
-        json.dump(data, file)
+        json.dump(data, file, indent = 4)
 
 #funtion to register employees
 def register_employees():
@@ -53,9 +53,10 @@ def register_employees():
     contact = input("Contact: ")
 
     emp = Employee(emp_id,name, role, dept, rate, contact)
-    employees.append(emp.my_dict)
+    employees.append(emp.my_dict())
 
     save_data(employee_file, employees)
     print("Employee Registered Successfully")
 
 
+register_employees()
