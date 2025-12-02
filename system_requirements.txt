@@ -11,15 +11,15 @@ git push origin <branch //PS: wag muna mag push sa main>
 
 🖥️ System Requirements
 
-1. Employee Management
+1. Employee Management ✅
 
     Register new employees ✅
 
     Store full name, role, department, hourly rate, and contact details ✅
 
-    Edit or remove employees
+    Edit or remove employees ✅
 
-    Assign salary rates
+    Assign salary rates ✅
 
 2. Attendance Tracking
 
