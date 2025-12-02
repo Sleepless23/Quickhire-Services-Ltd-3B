@@ -1,0 +1,58 @@
+>> Pwede na kayo gumawa guys. Kapag may gagawin kayong part make sure na mag branch muna kayo.
+>> BRANCHING STEP
+git checkout -b <branch name> //Para gumawa ng branch and malipat ka doon
+
+>>PUSHING STEP
+git add <filename>
+git commit -m "<message dito>"
+git push origin <branch //PS: wag muna mag push sa main>
+
+>> Kapag may natatapos kayo mark nyo dito then commit nyo to. sa message na ilalagay sa commit is yung nagawa nyo
+
+🖥️ System Requirements
+
+1. Employee Management
+
+    Register new employees ✅
+
+    Store full name, role, department, hourly rate, and contact details ✅
+
+    Edit or remove employees
+
+    Assign salary rates
+
+2. Attendance Tracking
+
+    Employees can sign in and sign out
+
+    Automatic time-stamping
+
+    Allow corrections by HR only
+
+    Calculate hours worked per day
+
+3. Payroll Generation
+
+    Monthly salary = Hours worked × Hourly rate
+
+    Separate overtime hours
+
+    Add allowances or deductions
+
+    Generate monthly payroll summary
+
+    Generate payslips per employee
+
+4. Reporting
+
+    System should generate:
+
+    Monthly payroll spreadsheet
+
+    Individual attendance history
+
+    Overtime reports
+
+    Daily attendance summaries
+
+    Reports should be exportable as CSV or PDF.
