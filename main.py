@@ -59,7 +59,40 @@ def register_employees():
     print("Employee Registered Successfully")
 
 def edit_employee():
-    pass
+    employees = load_data(employee_file)
+    emp_id = int(input("Enter employee ID to edit: "))
 
+    for emp in employees:
+        if emp["emp_id"] == emp_id:
+            print(f"Editing Employee: {emp["name"]}")
+            emp["name"] = input("New Name: ")
+            emp["role"] = input("New Role: ")
+            emp["dept"] = input("New Department: ")
+            emp["rate"] = float(input("New Hourly Rate: "))
+            emp["contact"] = input("New Contact: ")
 
-register_employees()
+            save_data(employee_file, employees)
+            print("Employee Successfully Updated")
+            return
+    print("Employee Not Found!")
+
+def menu():
+
+    while True:
+        print("""
+===============================
+    QuickHire-Services-Ltd.
+===============================
+              
+1. Register Employee
+2. Edit Employee
+""")
+
+        choice = int(input("Select Option: "))
+
+        if choice == 1:
+            register_employees()
+        elif choice == 2:
+            edit_employee()
+
+menu()
