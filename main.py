@@ -147,31 +147,33 @@ def sign_out():
     print("No sign-in found for today!")
 
 def menu():
+
     while True:
         print("""
 ===============================
-    QuickHire Services Ltd.
+    QuickHire-Services-Ltd.
 ===============================
+              
 1. Register Employee
 2. Edit Employee
 3. Delete Employee
 4. Sign In
 5. Sign Out
-        """)
-        choice = input("Choose: ")
-        if choice == '1':
+""")
+
+        choice = int(input("Select Option: "))
+
+        if choice == 1:
             register_employees()
-        elif choice == '2':
+        elif choice == 2:
             edit_employee()
-        elif choice == '3':
+        elif choice == 3:
             delete_employee()
-        elif choice == '4':
+        elif choice == 4:
             sign_in()
-        elif choice == '5':
+        elif choice == 5:
             sign_out()
-
-
-
+        
 menu()
 
 
