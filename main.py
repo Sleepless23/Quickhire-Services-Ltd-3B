@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 employee_file = "employees.json"
 attendace_file = "attendance.json"
@@ -97,25 +98,80 @@ def delete_employee():
 
     print("Employee Successfully Removed!")
 
-def menu():
 
+    # SIGN IN!
+def sign_in():
+    attendance = load_data(attendace_file)
+    emp_id = int(input("Enter Employee ID: "))
+    today = datetime.now().strftime("%Y-%m-%d")
+    
+    # Check if already signed in
+    for entry in attendance:
+        if entry["emp_id"] == emp_id and entry["date"] == today and not entry.get("sign_out"):
+            print("Already signed in today!")
+            return
+    
+    sign_in_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    new_entry = {
+        "emp_id": emp_id,
+        "date": today,
+        "sign_in": sign_in_time,
+        "sign_out": None,
+        "hours": 0.0
+    }
+    attendance.append(new_entry)
+    save_data(attendace_file, attendance)
+    print("Signed in successfully!")
+
+# SIGN OUT!
+def sign_out():
+    attendance = load_data(attendace_file)
+    emp_id = int(input("Enter Employee ID: "))
+    today = datetime.now().strftime("%Y-%m-%d")
+    
+    for entry in attendance:
+        if entry["emp_id"] == emp_id and entry["date"] == today and not entry.get("sign_out"):
+            sign_out_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            entry["sign_out"] = sign_out_time
+            
+            # Calculate hours
+            in_time = datetime.strptime(entry["sign_in"], "%Y-%m-%d %H:%M:%S")
+            out_time = datetime.strptime(sign_out_time, "%Y-%m-%d %H:%M:%S")
+            hours = (out_time - in_time).total_seconds() / 3600
+            entry["hours"] = round(hours, 2)
+            
+            save_data(attendace_file, attendance)
+            print(f"Signed out! Hours today: {entry['hours']}")
+            return
+    
+    print("No sign-in found for today!")
+
+def menu():
     while True:
         print("""
 ===============================
-    QuickHire-Services-Ltd.
+    QuickHire Services Ltd.
 ===============================
-              
 1. Register Employee
 2. Edit Employee
 3. Delete Employee
-""")
-
-        choice = int(input("Select Option: "))
-
-        if choice == 1:
+4. Sign In
+5. Sign Out
+        """)
+        choice = input("Choose: ")
+        if choice == '1':
             register_employees()
-        elif choice == 2:
+        elif choice == '2':
             edit_employee()
-        elif choice == 3:
+        elif choice == '3':
             delete_employee()
+        elif choice == '4':
+            sign_in()
+        elif choice == '5':
+            sign_out()
+
+
+
 menu()
+
+
