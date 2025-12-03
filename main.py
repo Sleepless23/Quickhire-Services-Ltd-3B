@@ -1,7 +1,9 @@
 import json
+from datetime import datetime
 
 employee_file = "employees.json"
-attendace_file = "attendance.json"
+attendance_file = "attendance.json"
+hr_pass = "admin_123"
 
 #employee class to initialize variables
 
@@ -97,6 +99,119 @@ def delete_employee():
 
     print("Employee Successfully Removed!")
 
+
+    # SIGN IN!
+def sign_in():
+    attendance = load_data(attendance_file)
+    try:
+        emp_id = int(input("Enter Employee ID: "))
+    except ValueError:
+        print("Invalid Employee ID!")
+        return
+    today = datetime.now().strftime("%m-%d-%Y")
+    # Check if already signed in
+    for entry in attendance:
+        if entry["emp_id"] == emp_id and entry["date"] == today and not entry.get("sign_out"):
+            print("Already signed in today!")
+            return
+    
+    sign_in_time = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+    new_entry = {
+        "emp_id": emp_id,
+        "date": today,
+        "sign_in": sign_in_time,
+        "sign_out": None,
+        "hours": 0.0
+    }
+    attendance.append(new_entry)
+    save_data(attendance_file, attendance)
+    print("Signed in successfully!")
+
+# SIGN OUT!
+def sign_out():
+    attendance = load_data(attendance_file)
+    try:
+        emp_id = int(input("Enter Employee ID: "))
+    except ValueError:
+        print("Invalid Employee ID!")
+        return
+    today = datetime.now().strftime("%m-%d-%Y")
+    
+    for entry in attendance:
+        if entry["emp_id"] == emp_id and entry["date"] == today and not entry.get("sign_out"):
+            sign_out_time = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+            entry["sign_out"] = sign_out_time
+            
+            # Calculate hours
+            in_time = datetime.strptime(entry["sign_in"], "%m-%d-%Y %H:%M:%S")
+            out_time = datetime.strptime(sign_out_time, "%m-%d-%Y %H:%M:%S")
+            hours = (out_time - in_time).total_seconds() / 3600
+            entry["hours"] = round(hours, 2)
+            
+            save_data(attendance_file, attendance)
+            print(f"Signed out! Hours today: {entry['hours']}")
+            return
+    
+    print("No sign-in found for today!")
+
+# HR Attendance Correction
+def edit_attendance():
+    password = input("Enter HR Password: ")
+    if password != hr_pass:
+        print("Access denied! For HR only!")
+        return
+    
+    attendance = load_data(attendance_file)
+    try:
+        emp_id = int(input("Enter Employee ID: "))
+    except ValueError:
+        print("Invalid Employee ID Number.")
+        return
+    
+    date = input("DATE [MM-DD-YYYY]: ")
+    for entry in attendance:
+        if entry["emp_id"] == emp_id and entry["date"] == date:
+            print(f"Current: In {entry['sign_in']}, Out {entry['sign_out']}, Hours {entry['hours']}")
+            
+            new_signin = input("New Sign-In [MM-DD-YYYY HH:MM:SS] or Press Enter to skip: ")
+            if new_signin:
+                try:
+                    datetime.strptime(new_signin, "%m-%d-%Y %H:%M:%S") 
+                    entry["sign_in"] = new_signin
+                except ValueError:
+                    print("Invalid format!")
+            
+            new_signout = input("New Sign-Out [MM-DD-YYYY HH:MM:SS] or Press Enter to skip: ")
+            if new_signout:
+                try:
+                    datetime.strptime(new_signout, "%m-%d-%Y %H:%M:%S")  
+                    entry["sign_out"] = new_signout
+                except ValueError:
+                    print("Invalid format!")
+
+
+            if entry["sign_in"] and entry["sign_out"]:
+                try:
+                    in_time = datetime.strptime(entry["sign_in"], "%m-%d-%Y %H:%M:%S")
+                    out_time = datetime.strptime(entry["sign_out"], "%m-%d-%Y %H:%M:%S")
+                    if out_time > in_time:
+                        hours = (out_time - in_time).total_seconds() / 3600 # May 3600 seconds sa isang oras 
+                        entry["hours"] = round(hours, 2)
+                        print(f"Updated hours: {entry['hours']}")
+                    else:
+                        print("Out time must be after in time.")
+                except ValueError:
+                    print("Invalid time format!")
+            
+            save_data(attendance_file, attendance)
+            print("Updated!")
+            return
+    
+    print("Entry not found.")
+
+
+
+
 def menu():
 
     while True:
@@ -108,6 +223,9 @@ def menu():
 1. Register Employee
 2. Edit Employee
 3. Delete Employee
+4. Sign In
+5. Sign Out
+6. Edit Attendance (HR Only!!)
 """)
 
         choice = int(input("Select Option: "))
@@ -118,4 +236,15 @@ def menu():
             edit_employee()
         elif choice == 3:
             delete_employee()
+        elif choice == 4:
+            sign_in()
+        elif choice == 5:
+            sign_out()
+        elif choice == 6:
+            edit_attendance()
+        else:
+            print("Invalid Input!")
+        
 menu()
+
+

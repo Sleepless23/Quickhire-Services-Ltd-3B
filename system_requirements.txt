@@ -23,13 +23,13 @@ git push origin <branch //PS: wag muna mag push sa main>
 
 2. Attendance Tracking
 
-    Employees can sign in and sign out
+    Employees can sign in and sign out ✅
 
-    Automatic time-stamping
+    Automatic time-stamping ✅
 
-    Allow corrections by HR only
+    Allow corrections by HR only ✅
 
-    Calculate hours worked per day
+    Calculate hours worked per day ✅
 
 3. Payroll Generation
 
