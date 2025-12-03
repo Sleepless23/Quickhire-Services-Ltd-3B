@@ -27,7 +27,7 @@ git push origin <branch //PS: wag muna mag push sa main>
 
     Automatic time-stamping ✅
 
-    Allow corrections by HR only
+    Allow corrections by HR only ✅
 
     Calculate hours worked per day ✅
 
