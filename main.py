@@ -244,7 +244,7 @@ def generate_payroll():
                 if entry_date[:2] == month[:2] and entry_date[6:] == month[3:]:
                     has_attendance = True
                     hours = entry["hours"]
-                    # Separate overtime hours (assuming > 8 hours is overtime)
+                    
                     if hours > 8:
                         regular_hours += 8
                         overtime_hours += (hours - 8)
