@@ -31,17 +31,17 @@ git push origin <branch //PS: wag muna mag push sa main>
 
     Calculate hours worked per day ✅
 
-3. Payroll Generation
+3. Payroll Generation ✅
 
-    Monthly salary = Hours worked × Hourly rate
+    Monthly salary = Hours worked × Hourly rate ✅
 
-    Separate overtime hours
+    Separate overtime hours ✅
 
-    Add allowances or deductions
+    Add allowances or deductions ✅
 
-    Generate monthly payroll summary
+    Generate monthly payroll summary ✅
 
-    Generate payslips per employee
+    Generate payslips per employee ✅
 
 4. Reporting
 

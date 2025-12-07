@@ -209,7 +209,92 @@ def edit_attendance():
     
     print("Entry not found.")
 
+# Payroll Generation
+def generate_payroll():
+    # HR Password Check
+    password = input("Enter HR Password: ")
+    if password != hr_pass:
+        print("Access denied! For HR only!")
+        return
 
+    month = input("Enter Month (MM-YYYY): ")
+    
+    # Load data
+    employees = load_data(employee_file)
+    attendance = load_data(attendance_file)
+    
+    payroll_summary = []
+
+    print("\n--- Generating Payroll ---")
+
+    # Loop through each employee
+    for emp in employees:
+        emp_id = emp["emp_id"]
+        rate = emp["rate"]
+        
+        regular_hours = 0
+        overtime_hours = 0
+        
+        has_attendance = False
+        # Calculate hours from attendance records
+        for entry in attendance:
+            if entry["emp_id"] == emp_id:
+                entry_date = entry["date"]
+                # Check if entry matches the month and year
+                if entry_date[:2] == month[:2] and entry_date[6:] == month[3:]:
+                    has_attendance = True
+                    hours = entry["hours"]
+                    
+                    if hours > 8:
+                        regular_hours += 8
+                        overtime_hours += (hours - 8)
+                    else:
+                        regular_hours += hours
+        
+        if not has_attendance:
+            continue
+
+        # Calculate Gross Pay
+        gross_pay = (regular_hours * rate) + (overtime_hours * rate * 1.5)
+        
+        print(f"\nEmployee: {emp['name']} (ID: {emp_id})")
+        try:
+            # Input Allowances and Deductions
+            allowance = float(input("Enter Allowances: ") or 0)
+            deduction = float(input("Enter Deductions: ") or 0)
+        except ValueError:
+            print("Invalid input, setting to 0")
+            allowance = 0
+            deduction = 0
+            
+        # Calculate Net Pay
+        net_pay = gross_pay + allowance - deduction
+        
+        payroll_summary.append({
+            "id": emp_id,
+            "name": emp["name"],
+            "reg_hrs": regular_hours,
+            "ot_hrs": overtime_hours,
+            "gross": gross_pay,
+            "net": net_pay
+        })
+
+        # Generate Payslip
+        print(f"\n--- Payslip for {emp['name']} ---")
+        print(f"Period: {month}")
+        print(f"Regular Hours: {regular_hours:.2f} hrs @ {rate}/hr")
+        print(f"Overtime Hours: {overtime_hours:.2f} hrs @ {rate * 1.5}/hr")
+        print(f"Gross Pay: {gross_pay:.2f}")
+        print(f"Allowances: {allowance:.2f}")
+        print(f"Deductions: {deduction:.2f}")
+        print(f"Net Pay: {net_pay:.2f}")
+        print("-----------------------------------")
+
+    # Generate Monthly Payroll Summary
+    print(f"\n--- Payroll Summary for {month} ---")
+    print(f"{'ID':<5} {'Name':<20} {'Reg Hrs':<10} {'OT Hrs':<10} {'Gross':<10} {'Net Pay':<10}")
+    for p in payroll_summary:
+        print(f"{p['id']:<5} {p['name']:<20} {p['reg_hrs']:<10.2f} {p['ot_hrs']:<10.2f} {p['gross']:<10.2f} {p['net']:<10.2f}")
 
 
 def menu():
@@ -226,6 +311,7 @@ def menu():
 4. Sign In
 5. Sign Out
 6. Edit Attendance (HR Only!!)
+7. Generate Payroll (HR Only!!)
 """)
 
         choice = int(input("Select Option: "))
@@ -242,6 +328,8 @@ def menu():
             sign_out()
         elif choice == 6:
             edit_attendance()
+        elif choice == 7:
+            generate_payroll()
         else:
             print("Invalid Input!")
         
