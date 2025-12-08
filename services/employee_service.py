@@ -77,3 +77,25 @@ def delete_employee():
     
     save_data(EMPLOYEE_FILE, updated_employees)
     print("Employee successfully removed!")
+    
+def list_employees():
+    """Display all employees in a formatted table"""
+    employees = load_data(EMPLOYEE_FILE)
+    
+    if not employees:
+        print("\nNo employees found in the system.")
+        return
+    
+    print("\n" + "="*90)
+    print("                         QuickHire-Services-Ltd. Employees List")
+    print("="*90)
+    print(f"{'ID':<5} {'Name':<20} {'Role':<15} {'Department':<15} {'Rate':<10} {'Contact':<15}")
+    print("-"*90)
+    
+    for emp in employees:
+        print(f"{emp['emp_id']:<5} {emp['name']:<20} {emp['role']:<15} "
+              f"{emp['dept']:<15} ${emp['rate']:<9.2f} {emp['contact']:<15}")
+    
+    print("="*90)
+    print(f"Total Employees: {len(employees)}")
+    print()
