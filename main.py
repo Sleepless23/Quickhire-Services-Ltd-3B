@@ -1,6 +1,6 @@
 from services.employee_service import register_employee, edit_employee, delete_employee, list_employees
 from services.attendance_service import sign_in, sign_out, edit_attendance
-from services.payroll_service import generate_payroll
+from services.payroll_service import generate_payroll, generate_individual_payslip
 
 
 def display_menu():
@@ -16,8 +16,9 @@ def display_menu():
 5. Sign In
 6. Sign Out
 7. Edit Attendance (HR Only!)
-8. Generate Payroll (HR Only!)
-9. Exit
+8. Generate Individual Payslip (HR Only!)
+9. Generate Monthly Payroll (HR Only!)
+10. Exit
 """)
 
 
@@ -47,8 +48,10 @@ def main():
         elif choice == 7:
             edit_attendance()
         elif choice == 8:
-            generate_payroll()
+            generate_individual_payslip()
         elif choice == 9:
+            generate_payroll()
+        elif choice == 10:
             print("Thank you for using QuickHire Services!")
             break
         else:
