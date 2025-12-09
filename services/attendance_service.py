@@ -1,5 +1,6 @@
 from datetime import datetime
 from utils.data_handler import load_data, save_data
+from utils.security import verify_hr_access
 from config import ATTENDANCE_FILE, DATE_FORMAT, DATETIME_FORMAT, HR_PASSWORD
 
 
@@ -66,6 +67,9 @@ def sign_out():
 
 
 def edit_attendance():
+    
+    if not verify_hr_access():
+        return
     """Edit attendance records (HR only)"""
     password = input("Enter HR Password: ")
     if password != HR_PASSWORD:
