@@ -6,7 +6,7 @@ def select_from_list(title, items):
         print(f"[{index}] {item}")
 
     try:
-        choice = int(input(f"Select {title} number: "))
+        choice = int(input(f"Select number: "))
         if 1 <= choice <= len(items):
             return items[choice - 1]
     except ValueError:
