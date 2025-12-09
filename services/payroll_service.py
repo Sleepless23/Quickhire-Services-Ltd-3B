@@ -1,4 +1,5 @@
 import json
+from config import RED, GREEN, BOLD, RESET
 from utils.data_handler import load_data
 from utils.security import verify_hr_access
 from config import (EMPLOYEE_FILE, ATTENDANCE_FILE, HR_PASSWORD, 
@@ -132,26 +133,26 @@ def _print_payslip(emp, month, regular_hours, overtime_hours, rate,
     overtime_pay = overtime_hours * rate * OVERTIME_MULTIPLIER
     
     print("\n" + "="*50)
-    print(f"         PAYSLIP FOR {emp['name'].upper()}")
+    print(f"         {BOLD}PAYSLIP FOR {emp['name'].upper()}{RESET}")
     print("="*50)
     print(f"Employee ID    : {emp['emp_id']}")
     print(f"Department     : {emp['dept']}")
     print(f"Role           : {emp['role']}")
     print(f"Period         : {month}")
     print("-"*50)
-    print("HOURS WORKED")
+    print(f"{BOLD}HOURS WORKED{RESET}")
     print(f"Regular Hours  : {regular_hours:>8.2f} hrs @ ₱{rate:.2f}/hr")
     print(f"Overtime Hours : {overtime_hours:>8.2f} hrs @ ₱{rate * OVERTIME_MULTIPLIER:.2f}/hr")
     print("-"*50)
-    print("EARNINGS")
+    print(f"{BOLD}EARNINGS{RESET}")
     print(f"Regular Pay    : ₱{regular_pay:>8.2f}")
     print(f"Overtime Pay   : ₱{overtime_pay:>8.2f}")
     print(f"Allowances     : ₱{allowance:>8.2f}")
     print("-"*50)
     print(f"Gross Pay      :   ₱{gross_pay:>8.2f}")
-    print(f"Deductions     : - ₱{deduction:>8.2f}")
+    print(f"Deductions     : {RED}- ₱{deduction:>8.2f}{RESET}")
     print("="*50)
-    print(f"NET PAY        : ₱{net_pay:>8.2f}")
+    print(f"NET PAY        : {GREEN} ₱{net_pay:>8.2f}{RESET}")
     print("="*50)
     print()
 
@@ -189,7 +190,7 @@ def _print_payroll_summary(month, payroll_summary):
             f"{p['id']:<5} {p['name']:<20} ₱{rate:<9.2f} "
             f"{p['reg_hrs']:<10.2f} {p['ot_hrs']:<10.2f} "
             f"₱{allowance:<11.2f} ₱{p['gross']:<11.2f} "
-            f"₱{deduction:<11.2f} ₱{p['net']:<11.2f}"
+            f"- ₱{deduction:<11.2f} ₱{p['net']:<11.2f}"
         )
 
         total_reg += p["reg_hrs"]
@@ -202,11 +203,11 @@ def _print_payroll_summary(month, payroll_summary):
     print("="*120)
     print(
         f"{'TOTAL':<25} "
-        f"{'':<10} "
+        f"{'':<11} "
         f"{total_reg:<10.2f} {total_ot:<10.2f} "
         f"₱{total_allowance:<11.2f} "
         f"₱{total_gross:<11.2f} "
-        f"₱{total_deduction:<11.2f} "
+        f" ₱{total_deduction:<11.2f} "
         f"₱{total_net:<11.2f}"
     )
     print("="*120)
