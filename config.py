@@ -21,3 +21,26 @@ GREEN = "\033[92m"
 BOLD = "\033[1m"
 
 RESET = "\033[0m"
+
+# DEPARTMENTS WITH ROLES
+DEPARTMENTS = {
+    "Finance": [
+        "Accountant",
+        "Payroll Officer",
+        "Finance Clerk"
+    ],
+    "IT": [
+        "IT Support",
+        "Software Developer",
+        "Network Administrator"
+    ],
+    "Operations": [
+        "Operations Staff",
+        "Supervisor",
+        "Manager"
+    ],
+    "Sales": [
+        "Sales Representative",
+        "Sales Manager"
+    ]
+}
