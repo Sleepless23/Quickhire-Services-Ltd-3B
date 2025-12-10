@@ -43,20 +43,21 @@ git push origin <branch //PS: wag muna mag push sa main>
 
     Generate payslips per employee ✅
 
-4. Reporting
+4. Reporting ✅
 
-    System should generate:
+    System should generate: 
 
-    Monthly payroll spreadsheet
+    Monthly payroll spreadsheet ✅
 
-    Individual attendance history
+    Individual attendance history ✅
 
-    Overtime reports
+    Overtime reports ✅
 
-    Daily attendance summaries
+    Daily attendance summaries ✅
 
-    Reports should be exportable as CSV or PDF.
-
+    Reports should be exportable as CSV or PDF. ✅
+	To make sure that you will be able to have a pdf file, install "reportlab"
+	You can enter in cmd = pip install reportlab
 
 Revisions:
 
@@ -84,3 +85,4 @@ Optional Enhancements:  ✅
 1 Department and Roles dictionary (to have unified Departments and Roles):
 	- Department hasMany roles
 	- When registering an employee: Select Department > List of Roles under the Department > Select Role
+
