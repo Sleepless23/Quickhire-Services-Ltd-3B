@@ -1,7 +1,13 @@
 from services.employee_service import register_employee, edit_employee, delete_employee, list_employees
 from services.attendance_service import sign_in, sign_out, edit_attendance
 from services.payroll_service import generate_payroll, generate_individual_payslip, prepare_payroll_inputs
-
+from services.report_service import (
+    export_monthly_payroll_csv,
+    export_individual_attendance_csv,
+    export_overtime_report_csv,
+    export_daily_attendance_summary_csv,
+    export_payslips_and_summary
+)
 
 def display_menu():
     print("""
@@ -19,6 +25,17 @@ def display_menu():
 8. Payroll Preparation (HR Only!)
 9. Generate Individual Payslip (HR Only!)
 10. Generate Monthly Payroll (HR Only!)
+          
+===============================
+    Generate Reports
+=============================== 
+          
+11. Export Monthly Payroll CSV (HR Only!)
+12. Export Individual Attendance CSV (HR Only!)
+13. Export Overtime Report CSV (HR Only!)
+14. Export Daily Attendance Summary CSV (HR Only!)
+15. Generate Payslips & Payroll Summary (PDF/TXT) (HR Only!)
+          
 0. Exit
 """)
 
@@ -54,6 +71,16 @@ def main():
             generate_individual_payslip()
         elif choice == 10:
             generate_payroll()
+        elif choice == 11:
+            export_monthly_payroll_csv()
+        elif choice == 12:
+            export_individual_attendance_csv()
+        elif choice == 13:
+            export_overtime_report_csv()
+        elif choice == 14:
+            export_daily_attendance_summary_csv()
+        elif choice == 15:
+            export_payslips_and_summary()
         elif choice == 0:
             print("Thank you for using QuickHire Services!")
             break
