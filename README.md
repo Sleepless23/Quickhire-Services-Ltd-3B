@@ -74,3 +74,5 @@ Overtime reports
 Daily attendance summaries
 
 Reports should be exportable as CSV or PDF.
+
+To start using the system, see [Documentation](QUICKSTART.md)

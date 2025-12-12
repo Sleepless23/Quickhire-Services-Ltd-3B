@@ -43,16 +43,46 @@ git push origin <branch //PS: wag muna mag push sa main>
 
     Generate payslips per employee ✅
 
-4. Reporting
+4. Reporting ✅
 
-    System should generate:
+    System should generate: 
 
-    Monthly payroll spreadsheet
+    Monthly payroll spreadsheet ✅
 
-    Individual attendance history
+    Individual attendance history ✅
 
-    Overtime reports
+    Overtime reports ✅
 
-    Daily attendance summaries
+    Daily attendance summaries ✅
 
-    Reports should be exportable as CSV or PDF.
+    Reports should be exportable as CSV or PDF. ✅
+	To make sure that you will be able to have a pdf file, install "reportlab"
+	You can enter in cmd = pip install reportlab
+
+Revisions:
+
+1 Edit Employee: ✅
+	- when editing employee, display all original information
+	- when Enter key pressed without entering value, retain original info
+
+2 Payroll Summary: ✅
+	- add hourly rate, deductions and allowances columns
+	- add total for each column at last row
+
+3 Payslip: ✅
+	- Put Allowances before Gross Pay. Refer to the standard order of Payroll Summaries (Basic Pay > Earnings/Other Earnings > Gross Pay > Deductions > Net Pay)
+	- add the Department and Role of the Employee
+
+
+Additional Module/s:
+1 Employees List: ✅ 
+	- to easily see the employee's id to edit, delete, or sign in/out without looking at json file.
+
+2 Individual Payslip: ✅
+	- Separate menu for generating individual payslip.
+
+Optional Enhancements:  ✅
+1 Department and Roles dictionary (to have unified Departments and Roles):
+	- Department hasMany roles
+	- When registering an employee: Select Department > List of Roles under the Department > Select Role
+
