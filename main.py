@@ -2,11 +2,10 @@ from services.employee_service import register_employee, edit_employee, delete_e
 from services.attendance_service import sign_in, sign_out, edit_attendance
 from services.payroll_service import generate_payroll, generate_individual_payslip, prepare_payroll_inputs
 from services.report_service import (
-    export_monthly_payroll_csv,
-    export_individual_attendance_csv,
-    export_overtime_report_csv,
-    export_daily_attendance_summary_csv,
-    export_payslips_and_summary
+    export_monthly_payroll,
+    export_individual_attendance,
+    export_overtime_report,
+    export_daily_attendance_summary
 )
 
 def display_menu():
@@ -34,7 +33,6 @@ def display_menu():
 12. Export Individual Attendance CSV (HR Only!)
 13. Export Overtime Report CSV (HR Only!)
 14. Export Daily Attendance Summary CSV (HR Only!)
-15. Generate Payslips & Payroll Summary (PDF/TXT) (HR Only!)
           
 0. Exit
 """)
@@ -72,20 +70,18 @@ def main():
         elif choice == 10:
             generate_payroll()
         elif choice == 11:
-            export_monthly_payroll_csv()
+            export_monthly_payroll()
         elif choice == 12:
-            export_individual_attendance_csv()
+            export_individual_attendance()
         elif choice == 13:
-            export_overtime_report_csv()
+            export_overtime_report()
         elif choice == 14:
-            export_daily_attendance_summary_csv()
-        elif choice == 15:
-            export_payslips_and_summary()
+            export_daily_attendance_summary()
         elif choice == 0:
             print("Thank you for using QuickHire Services!")
             break
         else:
-            print("Invalid option! Please select 1-9.")
+            print("Invalid option! Please select 1-15, or 0 to Exit.")
 
 
 if __name__ == "__main__":
